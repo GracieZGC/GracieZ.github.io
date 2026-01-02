@@ -1,6 +1,7 @@
 # Gracie's Blog（中文）
 
 定位：AI 产品经理的个人博客 + 作品集（Identity / Build Lab / Guides）。
+访问地址：https://graciezgc.github.io/GracieZ.github.io/
 
 ## 开发
 
