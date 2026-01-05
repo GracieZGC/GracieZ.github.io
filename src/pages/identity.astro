@@ -9,28 +9,25 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 						<header class="hero">
 							<div class="heroGrid">
 								<div class="heroText">
-										<div class="heroTop">
-											<div class="heroLeft">
-											<div class="heroTitleRow">
-												<h1 class="title">关于我</h1>
-												<a class="btn btn-primary btn-small heroResumeBtn" href="/resume.pdf" download>下载简历</a>
-											</div>
-											<div class="lead">AI 产品经理 · AI 实践者</div>
-										</div>
-										<div class="heroResume" aria-label="简历">
-											<ul class="contact heroContact" aria-label="联系方式">
-												<li><span class="k">邮箱</span><span class="v">zhanguanchen97@gmail.com</span></li>
-												<li><span class="k">微信</span><span class="v">Gracie_GC</span></li>
-											</ul>
+									<div class="heroTop">
+										<div class="heroLeft">
+												<div class="heroTitleRow">
+													<h1 class="title">关于我</h1>
+													<a class="btn btn-primary btn-small heroResumeBtn" href="/resume.pdf" download>下载简历</a>
+												</div>
+												<ul class="contact heroContact" aria-label="联系方式">
+													<li><span class="k">邮箱</span><span class="v">zhanguanchen97@gmail.com</span></li>
+													<li><span class="k">微信</span><span class="v">1196735986</span></li>
+												</ul>
 										</div>
 									</div>
+									</div>
 								</div>
-							</div>
-						</header>
+							</header>
 
 					<section class="section">
 						<div class="section-head">
-							<div class="section-title">工作经历</div>
+							<div class="section-title">个人经历</div>
 							<div class="section-underline" aria-hidden="true"></div>
 						</div>
 
@@ -41,38 +38,40 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 									<article class="job">
 										<div class="jobMain">
 											<div class="time">2023.07 - 2024.05</div>
-												<div class="jobTitle">阿里健康 · AI 医疗导购 Agent</div>
+													<div class="jobTitle jobTitleAccent">阿里健康 · AI 医疗导购 Agent</div>
 												<div class="muted jobMeta">核心逻辑设计 / Planner RL 策略 / 评测与数据闭环</div>
 												<ul class="jobBullets">
 													<li>
-														全链路 SOP 建设：对基于通义千问底座的医疗 Agent 导购对话优化效果负责。深度参与从 意图识别、RAG 知识库构建、Planner 路径规划、SFT 语料生产到端到端评测 的全链路 SOP 建设
-													</li>
-													<li>
-														策略引擎优化：通过制定精细化的 13 类 NER 实体提取规范与 基于强化学习（RL）的对话策略，解决了医疗场景下模型幻觉及复杂多轮对话中的“追问迷失”问题
-													</li>
-													<li>
-														业务产出：通过“数据驱动策略”的闭环迭代，实现模型回复准确率从 67% 提升至 95%，商品下单转化率提升 3pt
-													</li>
+															【全链路 SOP 建设】对基于通义千问底座的医疗 Agent 导购对话优化效果负责。深度参与从 意图识别、RAG 知识库构建、Planner 路径规划、SFT 语料生产到端到端评测 的全链路 SOP 建设
+														</li>
+														<li>
+															【策略引擎优化】通过制定精细化的 13 类 NER 实体提取规范与 基于强化学习（RL）的对话策略，解决了医疗场景下模型幻觉及复杂多轮对话中的“追问迷失”问题
+														</li>
+														<li>
+															【业务产出】通过“数据驱动策略”的闭环迭代，实现模型回复准确率从 67% 提升至 95%，商品下单转化率提升 3pt
+														</li>
 												</ul>
 
-												<div class="jobKeywords" aria-label="关键词">
-													<div class="metaLabel">关键词</div>
-													<div class="metaTags">
-														<span class="pill">LLM Agent</span>
-														<span class="pill">Planner RL</span>
-														<span class="pill">RAG</span>
-														<span class="pill">NER</span>
-														<span class="pill">数据闭环</span>
-														<span class="pill">解耦评测</span>
+													<div class="jobKeywords" aria-label="关键词">
+														<div class="metaLabel">关键词</div>
+														<div class="metaTags">
+															<span class="pill">AIAgent</span>
+															<span class="pill">医疗电商</span>
+															<span class="pill">特征工程</span>
+															<span class="pill">意图识别</span>
+															<span class="pill">RAG</span>
+															<span class="pill">大模型评测</span>
+															<span class="pill">多轮对话策略</span>
+															<span class="pill">准确/召回率</span>
+														</div>
 													</div>
-												</div>
 											</div>
 								</article>
 
 									<article class="job">
 										<div class="jobMain">
 											<div class="time">2020.9 - 2023.7</div>
-												<div class="jobTitle">华为HMS Core产品部，帐号产品（OD）</div>
+													<div class="jobTitle jobTitleAccent">华为HMS Core产品部，帐号产品</div>
 												<div class="muted jobMeta">实名认证专项 / 转化优化 / 极致降本增效</div>
 												<ul class="jobBullets">
 													<li>
@@ -100,45 +99,40 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 								</article>
 							</div>
 
-							<div class="track">
-								<div class="trackHeader">
-									<div class="trackKicker">AI 兴趣探索</div>
-									<div class="muted trackDesc">非遗内容生产提效 / AIGC 视频创作 / 工作流化落地。</div>
-								</div>
+								<div class="track">
+									<div class="trackHeader">
+											<div class="trackKicker">AI 技能探索</div>
+										<div class="muted trackDesc">非遗内容生产提效 / AIGC 视频创作 / Vibe Coding</div>
+									</div>
 
 								<article class="job">
 									<div class="jobMain">
 										<div class="time">2024.05 - 至今</div>
-											<div class="jobTitle">AI 落地顾问 / 独立开发者</div>
-												<ul class="jobBullets">
-													<li>把内容生产拆成可复用工作流：输入约束 → 素材池 → 生成 → 校验 → 发布 → 复盘。</li>
-													<li>沉淀提示词与风格一致性策略，支撑批量化产出与稳定交付。</li>
-												</ul>
+											<div class="jobTitle jobTitleAccent">AI 落地顾问 / 独立开发者</div>
+														<ul class="jobBullets">
+															<li>把内容生产拆成可复用工作流：输入约束 → 素材池 → 生成 → 校验 → 发布 → 复盘</li>
+															<li>沉淀提示词与风格一致性策略，支撑批量化产出与稳定交付</li>
+															<li>Vibe Coding 长期使用者，独立开发 AI App</li>
+														</ul>
 										</div>
-								<aside class="jobAside" aria-label="AI 兴趣探索 元数据">
-										<div class="metaList">
-											<div class="metaItem">
-												<div class="metaLabel">核心角色</div>
-												<div class="metaValue">顾问 / 独立负责人</div>
-											</div>
-											<div class="metaItem achievements">
-												<div class="metaLabel">成果</div>
-												<div class="metaTags">
-													<span class="pill">90% 生产成本降低</span>
-													<span class="pill">活动回顾秒级生成</span>
+									<aside class="jobAside" aria-label="AI 兴趣探索 元数据">
+											<div class="metaList">
+												<div class="metaItem achievements">
+														<div class="metaLabel">成果</div>
+														<div class="metaTags metaTagsAccent">
+															<span class="pill">90% 生产成本降低</span>
+														<span class="pill">活动回顾秒级生成</span>
+													</div>
 												</div>
-											</div>
-											<div class="metaItem">
-												<div class="metaLabel">工具链</div>
-												<div class="metaTags">
-													<span class="pill">Cursor</span>
-												<span class="pill">Midjourney</span>
-												<span class="pill">视频 AIGC</span>
-												<span class="pill">工作流化</span>
-											</div>
+													<div class="metaItem">
+														<div class="metaLabel">关键字</div>
+														<div class="metaTags metaTagsAccent">
+															<span class="pill">Vibe Coding</span>
+														<span class="pill">AIGC</span>
+													</div>
+												</div>
 										</div>
-									</div>
-								</aside>
+									</aside>
 								</article>
 								</div>
 							</div>
@@ -168,60 +162,46 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		.heroLeft {
 			min-width: 0;
 		}
-		.heroContact {
-			margin-top: 10px;
-			max-width: 520px;
-		}
+			.heroContact {
+				margin-top: 10px;
+				max-width: 520px;
+			}
 		.heroContact li {
 			grid-template-columns: 44px 1fr;
 		}
-		.heroTop {
-			display: flex;
-			align-items: flex-start;
-			justify-content: space-between;
-			gap: 16px;
-			flex-wrap: wrap;
-		}
-		.heroTitleRow {
-			display: flex;
-			align-items: baseline;
-			gap: 12px;
-			flex-wrap: nowrap;
-		}
-		.heroResume {
-			display: flex;
-			flex-direction: column;
-			align-items: flex-end;
-			justify-content: flex-start;
-			gap: 8px;
-			flex-wrap: wrap;
-		}
-		.heroTitleRow .heroResumeBtn.btn-primary {
-			background-image: none;
-			background-size: auto;
-			background-position: initial;
-			background-repeat: initial;
-			background: var(--accent);
-			border-color: var(--accent);
-			color: #fff;
-		}
-		.heroTitleRow .heroResumeBtn.btn-primary:hover {
-			background: var(--accent);
-			border-color: var(--accent);
-			color: #fff;
-			filter: brightness(0.95);
-			transform: translateY(-1px);
-		}
-		.heroResumeBtn {
-			flex: 0 0 auto;
-			white-space: nowrap;
-		}
-		.heroResumeBtn.btn-small {
-			padding: 6px 12px;
-			font-size: 13px;
-			line-height: 1.15;
-			border-radius: 12px;
-		}
+				.heroTop {
+					display: flex;
+					align-items: flex-start;
+					gap: 12px;
+				}
+				.heroTitleRow {
+					display: inline-flex;
+					align-items: center;
+					gap: 10px;
+					flex-wrap: nowrap;
+				}
+				.heroTitleRow .btn-primary {
+					background-image: none;
+				}
+				.heroTitleRow .heroResumeBtn.btn-primary {
+					background: transparent;
+					border-color: var(--accent);
+					color: var(--accent);
+				}
+				.heroTitleRow .heroResumeBtn.btn-primary:hover {
+					background: var(--accent-weak);
+					border-color: var(--accent);
+					color: var(--accent);
+				}
+				.heroTitleRow .btn-small {
+					padding: 4px 8px;
+					font-size: 12px;
+					border-radius: 999px;
+				}
+				.heroResumeBtn {
+					flex: 0 0 auto;
+					white-space: nowrap;
+				}
 		.title {
 			margin: 0;
 			font-size: 30px;
@@ -264,7 +244,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 		}
 		.trackHeader {
 			padding: 6px 0 18px;
-			border-bottom: 1px solid #f3f4f6;
+			border-bottom: none;
 		}
 		.trackKicker {
 			font-size: 12px;
@@ -323,12 +303,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			font-size: 13px;
 			line-height: 1.6;
 		}
-			.metaTags {
-				margin-top: 8px;
-				display: flex;
-				flex-wrap: wrap;
-				gap: 10px;
-			}
+				.metaTags {
+					margin-top: 8px;
+					display: flex;
+					flex-wrap: wrap;
+					gap: 10px;
+				}
+				.jobKeywords .pill {
+					background: rgba(37, 99, 235, 0.1);
+					border: 1px solid rgba(37, 99, 235, 0.18);
+					color: #1d4ed8;
+				}
+				.metaTagsAccent .pill {
+					background: rgba(37, 99, 235, 0.1);
+					border: 1px solid rgba(37, 99, 235, 0.18);
+					color: #1d4ed8;
+				}
 			.metaBullets {
 				margin: 8px 0 0;
 				padding-left: 0;
@@ -362,6 +352,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			font-weight: 600;
 			letter-spacing: 0.01em;
 			color: var(--text);
+		}
+		.jobTitleAccent {
+			color: var(--accent);
 		}
 		.jobMeta {
 			margin-top: 2px;
@@ -399,17 +392,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 			font-size: 13px;
 			word-break: break-all;
 		}
-		@media (max-width: 880px) {
-			.heroGrid {
-				grid-template-columns: 1fr;
-				gap: 18px;
-			}
-			.heroResume {
-				align-items: flex-start;
-			}
-			.track + .track {
-				padding-top: 18px;
-			}
+			@media (max-width: 880px) {
+				.heroGrid {
+					grid-template-columns: 1fr;
+					gap: 18px;
+				}
+				.track + .track {
+					padding-top: 18px;
+				}
 			.job {
 				grid-template-columns: 1fr;
 				gap: 14px;

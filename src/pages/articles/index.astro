@@ -1,0 +1,230 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TagPill from "../../components/TagPill.astro";
+import { getCollection } from "astro:content";
+
+const entries = (await getCollection("guides", (e) => !e.data.draft)).sort(
+	(a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+);
+
+const allTags = Array.from(new Set(entries.flatMap((e) => e.data.tags))).sort((a, b) =>
+	a.localeCompare(b, "zh-Hans-CN"),
+);
+---
+
+<BaseLayout title="文章" description="提示词、教程与工作流模板。">
+	<section class="page">
+		<div class="container">
+			<div class="stack">
+				<header class="head">
+					<h1 class="title">文章</h1>
+					<div class="section-underline" aria-hidden="true"></div>
+
+					<div class="controls">
+						<input
+							id="q"
+							class="search"
+							type="search"
+							placeholder="搜索标题 / 摘要 / 标签…"
+							autocomplete="off"
+						/>
+						<button id="clear" class="btn btn-ghost" type="button">清空</button>
+					</div>
+
+					<div class="tags" aria-label="标签筛选">
+						<button class="tagBtn active" type="button" data-tag="__all">全部</button>
+						{allTags.map((tag) => (
+							<button class="tagBtn" type="button" data-tag={tag}>
+								#{tag}
+							</button>
+						))}
+					</div>
+				</header>
+
+				<section class="listSection">
+					<ul id="list" class="list">
+						{entries.map((e) => {
+							const tagText = e.data.tags.join(" ");
+							return (
+								<li
+									class="item"
+									data-title={e.data.title}
+									data-desc={e.data.description ?? ""}
+									data-tags={tagText}
+								>
+									<div class="itemTop">
+										<a class="itemTitleLink" href={`/articles/${e.slug}`}>
+											<svg
+												class="itemTitleIcon"
+												viewBox="0 0 1024 1024"
+												xmlns="http://www.w3.org/2000/svg"
+												aria-hidden="true"
+												focusable="false"
+											>
+												<path d="M0 0H307.2v1024H0z" fill="currentColor"></path>
+											</svg>
+											<span class="itemTitle">{e.data.title}</span>
+										</a>
+										<span class="muted date">{e.data.pubDate.toISOString().slice(0, 10)}</span>
+									</div>
+									{e.data.tags.length ? (
+										<div class="pillRow">
+											{e.data.tags.map((t) => (
+												<TagPill tag={t} href={`/articles#tag=${encodeURIComponent(t)}`} />
+											))}
+										</div>
+									) : null}
+								</li>
+							);
+						})}
+					</ul>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<script>
+		const q = document.getElementById("q");
+		const clear = document.getElementById("clear");
+		const list = document.getElementById("list");
+		const tagBtns = Array.from(document.querySelectorAll("[data-tag]"));
+
+		const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+		const initialTag = params.get("tag");
+		const state = { q: "", tag: initialTag ?? "__all" };
+
+		const normalize = (s) => (s ?? "").toLowerCase().trim();
+		const apply = () => {
+			if (!(list instanceof HTMLElement)) return;
+			const items = Array.from(list.querySelectorAll(".item"));
+			const qv = normalize(state.q);
+			const tagv = state.tag;
+
+			for (const el of items) {
+				if (!(el instanceof HTMLElement)) continue;
+				const title = normalize(el.dataset.title);
+				const desc = normalize(el.dataset.desc);
+				const tags = normalize(el.dataset.tags);
+				const okQ = !qv || title.includes(qv) || desc.includes(qv) || tags.includes(qv);
+				const okTag = tagv === "__all" || tags.split(/\s+/).includes(normalize(tagv));
+				el.style.display = okQ && okTag ? "" : "none";
+			}
+
+			for (const b of tagBtns) {
+				if (!(b instanceof HTMLElement)) continue;
+				b.classList.toggle("active", b.dataset.tag === tagv);
+			}
+		};
+
+		if (q instanceof HTMLInputElement) {
+			q.addEventListener("input", () => {
+				state.q = q.value;
+				apply();
+			});
+		}
+
+		if (clear instanceof HTMLButtonElement) {
+			clear.addEventListener("click", () => {
+				state.q = "";
+				if (q instanceof HTMLInputElement) q.value = "";
+				apply();
+			});
+		}
+
+		for (const b of tagBtns) {
+			b.addEventListener("click", () => {
+				state.tag = b.dataset.tag ?? "__all";
+				const next = state.tag === "__all" ? "" : `tag=${encodeURIComponent(state.tag)}`;
+				history.replaceState(null, "", next ? `#${next}` : "#");
+				apply();
+			});
+		}
+
+		apply();
+	</script>
+
+	<style>
+		.page {
+			padding: 28px 0 60px;
+		}
+		.head .title {
+			margin: 0;
+			font-size: 30px;
+			letter-spacing: 0.02em;
+		}
+		.controls {
+			margin-top: 18px;
+			display: flex;
+			gap: 12px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+		.search {
+			flex: 1 1 260px;
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 10px 12px;
+			font-size: 14px;
+			background: transparent;
+		}
+		.tags {
+			margin-top: 14px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+		.tagBtn {
+			border: 1px solid rgba(37, 99, 235, 0.18);
+			background: rgba(37, 99, 235, 0.1);
+			color: #1d4ed8;
+			border-radius: 999px;
+			padding: 6px 10px;
+			cursor: pointer;
+			font-size: 13px;
+			font-weight: 500;
+		}
+		.tagBtn.active {
+			background: rgba(37, 99, 235, 0.18);
+		}
+		.list {
+			list-style: none;
+			padding: 0;
+			margin: 16px 0 0;
+		}
+		.item {
+			padding: 16px 0;
+			border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+		}
+		.itemTop {
+			display: flex;
+			justify-content: space-between;
+			gap: 16px;
+			align-items: baseline;
+			flex-wrap: wrap;
+		}
+		.itemTitleLink {
+			display: inline-flex;
+			align-items: center;
+			gap: 10px;
+			color: var(--text);
+			text-decoration: none;
+			font-weight: 700;
+		}
+		.itemTitleLink:hover {
+			color: var(--accent);
+			text-decoration: none;
+		}
+		.itemTitleIcon {
+			width: 10px;
+			height: 18px;
+			color: var(--accent);
+		}
+		.pillRow {
+			margin-top: 10px;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+		}
+	</style>
+</BaseLayout>
+

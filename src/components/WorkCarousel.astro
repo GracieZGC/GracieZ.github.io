@@ -7,13 +7,29 @@ type Props = {
 	maxWidth?: number;
 	aspectRatio?: string;
 	showChrome?: boolean;
+	autoPlayImages?: boolean;
+	autoPlayIntervalMs?: number;
 };
 
-const { gallery, alt = "", maxWidth = 960, aspectRatio = "16 / 9", showChrome = false } = Astro.props;
+const {
+	gallery,
+	alt = "",
+	maxWidth = 960,
+	aspectRatio = "16 / 9",
+	showChrome = false,
+	autoPlayImages = false,
+	autoPlayIntervalMs = 4200,
+} = Astro.props;
 const items = gallery ?? [];
 ---
 
-<section class="root" style={`max-width:${maxWidth}px;`} data-work-carousel>
+<section
+	class="root"
+	style={`max-width:${maxWidth}px;`}
+	data-work-carousel
+	data-autoplay-images={autoPlayImages ? "true" : "false"}
+	data-autoplay-interval={String(autoPlayIntervalMs)}
+>
 	<div class="frame" style={`aspect-ratio:${aspectRatio};`}>
 		{showChrome ? (
 			<div class="chrome" aria-hidden="true">
@@ -75,6 +91,8 @@ const items = gallery ?? [];
 			const dots = Array.from(root.querySelectorAll("[data-dot]"));
 			const slides = Array.from(root.querySelectorAll("[data-slide]"));
 			const total = slides.length;
+			const autoPlayEnabled = root.dataset.autoplayImages === "true";
+			const intervalMs = Number(root.dataset.autoplayInterval || "4200") || 4200;
 
 			if (!(viewport instanceof HTMLElement) || total <= 1) {
 				continue;
@@ -82,12 +100,26 @@ const items = gallery ?? [];
 
 			let activeIndex = 0;
 			let raf = 0;
+			let timer = 0;
+			let hovered = false;
+			let inView = true;
+			const reducedMotion =
+				window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+			const imageIndices = slides
+				.map((s, idx) => (s.querySelector("img") ? idx : -1))
+				.filter((idx) => idx >= 0);
 
 			const clamp = (v) => Math.min(Math.max(v, 0), total - 1);
 			const width = () => viewport.clientWidth;
 			const scrollToIndex = (idx, behavior = "smooth") => {
 				activeIndex = clamp(idx);
 				viewport.scrollTo({ left: activeIndex * width(), behavior });
+			};
+
+			const clearTimer = () => {
+				if (timer) window.clearTimeout(timer);
+				timer = 0;
 			};
 
 			const setActive = (idx) => {
@@ -109,6 +141,45 @@ const items = gallery ?? [];
 				if (next instanceof HTMLButtonElement) next.disabled = activeIndex === total - 1;
 			};
 
+			const isActiveSlideImage = () => {
+				const slide = slides[activeIndex];
+				if (!(slide instanceof HTMLElement)) return false;
+				return Boolean(slide.querySelector("img"));
+			};
+
+			const nextImageIndex = () => {
+				if (!imageIndices.length) return activeIndex;
+				for (const idx of imageIndices) {
+					if (idx > activeIndex) return idx;
+				}
+				return imageIndices[0];
+			};
+
+			const shouldAutoPlay = () => {
+				if (!autoPlayEnabled) return false;
+				if (reducedMotion) return false;
+				if (!inView) return false;
+				if (hovered) return false;
+				if (document.visibilityState && document.visibilityState !== "visible") return false;
+				if (imageIndices.length <= 1) return false;
+				return isActiveSlideImage();
+			};
+
+			const schedule = (delay = intervalMs) => {
+				if (!autoPlayEnabled) return;
+				if (reducedMotion) return;
+				if (imageIndices.length <= 1) return;
+				clearTimer();
+				timer = window.setTimeout(() => {
+					if (shouldAutoPlay()) {
+						scrollToIndex(nextImageIndex());
+						schedule(intervalMs);
+					} else {
+						schedule(900);
+					}
+				}, delay);
+			};
+
 			const onScroll = () => {
 				if (raf) cancelAnimationFrame(raf);
 				raf = requestAnimationFrame(() => {
@@ -127,16 +198,52 @@ const items = gallery ?? [];
 				{ passive: true },
 			);
 
-			prev?.addEventListener("click", () => scrollToIndex(activeIndex - 1));
-			next?.addEventListener("click", () => scrollToIndex(activeIndex + 1));
+			prev?.addEventListener("click", () => {
+				scrollToIndex(activeIndex - 1);
+				schedule();
+			});
+			next?.addEventListener("click", () => {
+				scrollToIndex(activeIndex + 1);
+				schedule();
+			});
 
 			for (const d of dots) {
 				if (!(d instanceof HTMLButtonElement)) continue;
-				d.addEventListener("click", () => scrollToIndex(Number(d.dataset.dot ?? "0")));
+				d.addEventListener("click", () => {
+					scrollToIndex(Number(d.dataset.dot ?? "0"));
+					schedule();
+				});
+			}
+
+			root.addEventListener("mouseenter", () => {
+				hovered = true;
+				clearTimer();
+			});
+			root.addEventListener("mouseleave", () => {
+				hovered = false;
+				schedule();
+			});
+			document.addEventListener("visibilitychange", () => {
+				if (!autoPlayEnabled) return;
+				if (document.visibilityState === "visible") schedule();
+				else clearTimer();
+			});
+
+			if ("IntersectionObserver" in window) {
+				const io = new IntersectionObserver(
+					(entries) => {
+						inView = entries.some((e) => e.isIntersecting);
+						if (inView) schedule();
+						else clearTimer();
+					},
+					{ threshold: 0.2 },
+				);
+				io.observe(root);
 			}
 
 			setActive(0);
 			scrollToIndex(0, "auto");
+			schedule(1200);
 		}
 	</script>
 </section>
@@ -286,18 +393,18 @@ const items = gallery ?? [];
 		justify-content: center;
 		margin-top: 14px;
 	}
-	.dot {
-		width: 8px;
-		height: 8px;
-		border-radius: 999px;
-		border: 1px solid rgba(15, 23, 42, 0.16);
-		background: rgba(15, 23, 42, 0.06);
-		cursor: pointer;
-		padding: 0;
-	}
-	.dot.is-active {
-		width: 18px;
-		background: rgba(37, 99, 235, 0.24);
-		border-color: rgba(37, 99, 235, 0.35);
-	}
-</style>
+		.dot {
+			width: 10px;
+			height: 10px;
+			border-radius: 999px;
+			border: none;
+			background: rgba(15, 23, 42, 0.12);
+			cursor: pointer;
+			padding: 0;
+		}
+		.dot.is-active {
+			width: 10px;
+			height: 10px;
+			background: rgba(37, 99, 235, 0.5);
+		}
+	</style>

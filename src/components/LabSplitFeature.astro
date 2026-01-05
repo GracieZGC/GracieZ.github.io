@@ -113,8 +113,15 @@ const ordered = mediaSide === "left" ? "is-left" : "is-right";
 					allowfullscreen
 				/>
 			</div>
-		) : (
-			<WorkCarousel gallery={gallery} alt={title} maxWidth={maxMediaWidth} aspectRatio={aspectRatio} showChrome={showChrome} />
+	) : (
+			<WorkCarousel
+				gallery={gallery}
+				alt={title}
+				maxWidth={maxMediaWidth}
+				aspectRatio={aspectRatio}
+				showChrome={showChrome}
+				autoPlayImages={true}
+			/>
 		)}
 	</div>
 </section>

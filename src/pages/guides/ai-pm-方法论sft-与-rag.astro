@@ -1,0 +1,12 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="该文章已删除" description="该文章已删除">
+	<div class="container" style="padding: 56px 0;">
+		<h1 style="margin: 0; font-size: 28px;">该文章已删除</h1>
+		<p class="muted" style="margin-top: 12px;">你将被自动跳转回文章列表。</p>
+		<p style="margin-top: 10px;"><a href="/articles">返回文章</a></p>
+	</div>
+	<meta http-equiv="refresh" content="0; url=/articles" />
+</BaseLayout>

@@ -15,16 +15,16 @@ const notebookGallery: GalleryItem[] = [
 	{ kind: "image", src: "/portfolio/笔记网站-笔记本页.png", alt: "AI 笔记网站 - 笔记本页" },
 ];
 
-const notebookItem: PortfolioItem = {
-	slug: "ai-notebook",
-	title: "AI 笔记网站",
-	subtitle: "产品 Demo（左右滑动）",
-	type: "product",
-	tags: ["AI 笔记", "视觉分析", "检索", "工作流"],
-	gallery: notebookGallery,
-	description: "从 0 独立搭建：信息管理、视觉分析、检索与复用。",
-	focusPoints: ["信息管理与可复用结构", "视觉分析与检索体验", "AI 助手协作流程", "性能与可维护性"],
-};
+	const notebookItem: PortfolioItem = {
+		slug: "ai-notebook",
+		title: "AI 笔记网站",
+		subtitle: "产品 Demo（左右滑动）",
+		type: "product",
+		tags: ["AI笔记", "AI解析", "AI自动化分析"],
+		gallery: notebookGallery,
+		description: "AI解析链接/内容，支持AI对笔记进行可视化数据分析",
+		focusPoints: ["信息管理与可复用结构", "视觉分析与检索体验", "AI 助手协作流程", "性能与可维护性"],
+	};
 
 const mergedGallery: GalleryItem[] = [
 	{ kind: "image", src: "/portfolio/ai非遗.JPG", alt: "ai非遗" },
@@ -32,18 +32,16 @@ const mergedGallery: GalleryItem[] = [
 	{ kind: "image", src: "/portfolio/蓝染海报.JPG", alt: "蓝染海报" },
 ];
 
-const mergedTags = Array.from(new Set(portfolioItems.flatMap((it) => it.tags ?? [])));
-
-const mergedItem: PortfolioItem = {
-	slug: "aigc-visuals",
-	title: "非遗 AIGC 视觉实验",
-	subtitle: "3 张海报（左右滑动）",
-	type: "visual",
-	tags: mergedTags,
-	gallery: mergedGallery,
-	description: "把一组非遗题材的 AIGC 视觉实验放进同一个窗口里浏览。",
-	focusPoints: ["风格一致性", "材质/纹理表达", "题材语义与构图", "可复用提示词方向"],
-};
+	const mergedItem: PortfolioItem = {
+		slug: "aigc-visuals",
+		title: "AIGC与非遗",
+		subtitle: "3 张海报（左右滑动）",
+		type: "visual",
+		tags: ["AIGC", "非遗营销海报"],
+		gallery: mergedGallery,
+		description: "用AI给传统文化行业赋能",
+		focusPoints: ["风格一致性", "材质/纹理表达", "题材语义与构图", "可复用提示词方向"],
+	};
 
 const enterpriseItem: PortfolioItem = {
 	slug: "enterprise-ai-agent-flow",
@@ -79,13 +77,13 @@ const enterpriseYoutubePoster = "/portfolio/非遗龙舟.JPG";
 						mediaSide="right"
 						mediaAccent={true}
 						showChrome={false}
-						actions={[
-							{
-								label: "View project ↗",
-								href: "https://github.com/Gwen-Z/EchoNotes",
-								external: true,
-								variant: "accent",
-							},
+							actions={[
+								{
+									label: "查看详情",
+									href: "https://github.com/Gwen-Z/EchoNotes",
+									external: true,
+									variant: "accent",
+								},
 						]}
 					/>
 
@@ -100,13 +98,13 @@ const enterpriseYoutubePoster = "/portfolio/非遗龙舟.JPG";
 						mediaSide="left"
 						mediaAccent={false}
 						showChrome={false}
-						actions={[
-							{
-								label: "View project ↗",
-								href: "/guides/非遗-aigc-创作笔记一-从参考图开始-反向提取风格",
-								variant: "accent",
-							},
-						]}
+							actions={[
+								{
+									label: "查看详情",
+									href: "/articles/非遗-aigc-创作笔记一-从参考图开始-反向提取风格",
+									variant: "accent",
+								},
+							]}
 					/>
 
 					<div class="divider" aria-hidden="true"></div>
@@ -120,11 +118,18 @@ const enterpriseYoutubePoster = "/portfolio/非遗龙舟.JPG";
 						mediaAccent={false}
 							aspectRatio="16 / 9"
 							showChrome={false}
-							actions={[]}
-						/>
-					</div>
-				)}
-			</div>
+								actions={[
+									{
+										label: "查看详情",
+										href: enterpriseYoutube,
+										external: true,
+										variant: "accent",
+									},
+								]}
+							/>
+						</div>
+					)}
+				</div>
 	</section>
 
 		<style>
