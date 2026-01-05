@@ -27,20 +27,7 @@ const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !=
 				<div class="stack main">
 					<article class="card-pad">
 						<header class="head">
-							<h1 class="title">
-								<svg
-									class="titleIcon"
-									viewBox="0 0 1024 1024"
-									version="1.1"
-									xmlns="http://www.w3.org/2000/svg"
-									aria-hidden="true"
-									focusable="false"
-								>
-									<path d="M0 0H307.2v1024H0z" fill="currentColor"></path>
-								</svg>
-								{entry.data.title}
-							</h1>
-							<div class="section-underline" aria-hidden="true"></div>
+							<h1 class="title">{entry.data.title}</h1>
 							<div class="meta">
 								<span class="muted">{entry.data.pubDate.toISOString().slice(0, 10)}</span>
 								<span class="muted">·</span>
@@ -102,14 +89,6 @@ const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !=
 			font-weight: 800;
 			letter-spacing: 0.02em;
 			line-height: 1.25;
-			display: inline-flex;
-			align-items: center;
-			gap: 10px;
-		}
-		.titleIcon {
-			width: 10px;
-			height: 18px;
-			color: var(--accent);
 		}
 		.meta {
 			margin-top: 10px;
@@ -148,4 +127,3 @@ const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !=
 		}
 	</style>
 </BaseLayout>
-
