@@ -12,8 +12,12 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 
+const HIDDEN_TAGS = new Set(["IntangibleHeritage", "AIGC", "PromptEngineering", "Workflow"]);
+const normalizeTag = (tag) => String(tag || "").trim().replace(/^#/, "");
+const displayTags = (entry.data.tags || []).filter((t) => !HIDDEN_TAGS.has(normalizeTag(t)));
+
 const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !== entry.slug))
-	.filter((e) => e.data.tags.some((t) => entry.data.tags.includes(t)))
+	.filter((e) => e.data.tags.some((t) => displayTags.includes(t)))
 	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
 	.slice(0, 4);
 ---
@@ -39,9 +43,9 @@ const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !=
 									<img src={entry.data.diagram} alt={entry.data.diagramAlt ?? entry.data.title} loading="lazy" />
 								</div>
 							) : null}
-							{entry.data.tags.length ? (
+							{displayTags.length ? (
 								<div class="tagRow">
-									{entry.data.tags.map((t) => (
+									{displayTags.map((t) => (
 										<TagPill tag={t} href={`/articles#tag=${encodeURIComponent(t)}`} />
 									))}
 								</div>
