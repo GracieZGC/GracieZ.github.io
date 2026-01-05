@@ -25,7 +25,6 @@ const allTags = Array.from(new Set(entries.flatMap((e) => e.data.tags))).sort((a
 							placeholder="搜索标题 / 摘要 / 标签…"
 							autocomplete="off"
 						/>
-						<button id="clear" class="btn btn-ghost" type="button">清空</button>
 					</div>
 
 					<div class="tags" aria-label="标签筛选">
@@ -82,7 +81,6 @@ const allTags = Array.from(new Set(entries.flatMap((e) => e.data.tags))).sort((a
 
 	<script>
 		const q = document.getElementById("q");
-		const clear = document.getElementById("clear");
 		const list = document.getElementById("list");
 		const tagBtns = Array.from(document.querySelectorAll("[data-tag]"));
 
@@ -116,14 +114,6 @@ const allTags = Array.from(new Set(entries.flatMap((e) => e.data.tags))).sort((a
 		if (q instanceof HTMLInputElement) {
 			q.addEventListener("input", () => {
 				state.q = q.value;
-				apply();
-			});
-		}
-
-		if (clear instanceof HTMLButtonElement) {
-			clear.addEventListener("click", () => {
-				state.q = "";
-				if (q instanceof HTMLInputElement) q.value = "";
 				apply();
 			});
 		}
