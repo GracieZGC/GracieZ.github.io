@@ -34,8 +34,6 @@ const related = (await getCollection("guides", (e) => !e.data.draft && e.slug !=
 							<h1 class="title">{entry.data.title}</h1>
 							<div class="meta">
 								<span class="muted">{entry.data.pubDate.toISOString().slice(0, 10)}</span>
-								<span class="muted">·</span>
-								<a class="muted" href="/articles">返回列表</a>
 							</div>
 							{entry.data.description ? <p class="muted">{entry.data.description}</p> : null}
 							{entry.data.diagram ? (
