@@ -4,17 +4,19 @@ import { portfolioItems } from "../data/portfolio";
 import LabSplitFeature from "../components/LabSplitFeature.astro";
 import type { GalleryItem, PortfolioItem } from "../data/portfolio";
 
+const imageVersion = "20250308";
+
 const notebookGallery: GalleryItem[] = [
-	{ kind: "image", src: "/portfolio/笔记网站-首页.png", alt: "AI 笔记网站 - 首页" },
-	{ kind: "image", src: "/portfolio/笔记网站-解析页.png", alt: "AI 笔记网站 - 解析页" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI助手页.png", alt: "AI 笔记网站 - AI 助手页" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI分析页-选择笔记本.png", alt: "AI 笔记网站 - AI 分析页 - 选择笔记本" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI分析页-洞察卡.png", alt: "AI 笔记网站 - AI 分析页 - 洞察卡" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI分析页-柱状图.png", alt: "AI 笔记网站 - AI 分析页 - 柱状图" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI分析页-环形图.png", alt: "AI 笔记网站 - AI 分析页 - 环形图" },
-	{ kind: "image", src: "/portfolio/笔记网站-AI分析页-热力图.png", alt: "AI 笔记网站 - AI 分析页 - 热力图" },
-	{ kind: "image", src: "/portfolio/笔记网站-分析列表页.png", alt: "AI 笔记网站 - 分析列表页" },
-	{ kind: "image", src: "/portfolio/笔记网站-笔记本页.png", alt: "AI 笔记网站 - 笔记本页" },
+	{ kind: "image", src: `/portfolio/笔记网站-首页.png?v=${imageVersion}`, alt: "AI 笔记网站 - 首页" },
+	{ kind: "image", src: `/portfolio/笔记网站-解析页.png?v=${imageVersion}`, alt: "AI 笔记网站 - 解析页" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI助手页.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 助手页" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI分析页-选择笔记本.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 分析页 - 选择笔记本" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI分析页-洞察卡.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 分析页 - 洞察卡" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI分析页-柱状图.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 分析页 - 柱状图" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI分析页-环形图.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 分析页 - 环形图" },
+	{ kind: "image", src: `/portfolio/笔记网站-AI分析页-热力图.png?v=${imageVersion}`, alt: "AI 笔记网站 - AI 分析页 - 热力图" },
+	{ kind: "image", src: `/portfolio/笔记网站-分析列表页.png?v=${imageVersion}`, alt: "AI 笔记网站 - 分析列表页" },
+	{ kind: "image", src: `/portfolio/笔记网站-笔记本页.png?v=${imageVersion}`, alt: "AI 笔记网站 - 笔记本页" },
 ];
 
 	const notebookItem: PortfolioItem = {
